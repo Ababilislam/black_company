@@ -11,8 +11,8 @@ from sqlalchemy.orm import Session
 
 models.Base.metadata.create_all(bind=engine)
 
-# app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)   #hides the docs,redoc and openapi.json
-app = FastAPI()
+app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)   #hides the docs,redoc and openapi.json
+# app = FastAPI()
 
 # add fontend templates
 templates = Jinja2Templates(directory="templates")
