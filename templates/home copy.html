@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ request.title }}</title>
+        <link rel="stylesheet" href="static/style.css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+            crossorigin="anonymous">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+            crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+        <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+            <!-- Navbar content -->
+            <div class="container-fluid d-flex justify-content-between">
+                <!-- Left aligned brand -->
+                <a class="navbar-brand ms-4" href="#">
+                    Black Company
+                </a>
+
+                <!-- Center aligned text -->
+                <a class="navbar-brand mx-auto" href="#">Black Company Index</a>
+
+                <!-- Right aligned button for popup form -->
+                <button class="btn btn-outline-light me-4"
+                    data-bs-toggle="modal" data-bs-target="#infoModal">
+                    Report a Black Company
+                </button>
+            </div>
+        </nav>
+
+        <section class="hero-section text-white position-relative">
+            <!-- Background Image -->
+            <img
+                src="/static/web_hero (2).png"
+                class="img-fluid position-absolute"
+                style=" z-index: 1; top: 0; left: 0; width: 100%; height: 300px;"
+                alt="Responsive image">
+
+            <!-- Overlay Text -->
+            <div
+                class="container d-flex flex-column justify-content-center align-items-center text-center"
+                style="position: relative; z-index: 2; height: 300px;">
+
+                <h1 class="display-4 fw-bold mb-4 text-shadow"
+                    style="color: rgba(255, 255, 255, 0.40);">Welcome to Black
+                    Company Index</h1>
+                <h3 class="display-6 fw-bold mb-4 text-shadow blockquote"
+                    style="color: rgba(255, 255, 255, 0.50);"">
+                    🚨 Beware of black companies — they exploit workers with
+                    long hours, low pay, and no respect for your rights.
+                    Always research before you apply — your health and dignity
+                    come first.
+                </h3>
+                <div class="bg-white bg-opacity-25 p-4 rounded shadow"
+                    style="width: 50%; max-width: 600px;">
+                    <form>
+                        <div class="input-group opacity-75">
+                            <input type="text" class="form-control"
+                                placeholder="Search for black companies..."
+                                aria-label="Search for black companies">
+                            <button class="btn btn-primary"
+                                type="submit">Go</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Hero Heading (optional) -->
+        <!-- <h1 class="display-4 fw-bold mb-4 text-shadow">Welcome to Black Company</h1> -->
+
+        <!-- Modal for form input -->
+        <div class="modal fade" id="infoModal" tabindex="-1"
+            aria-labelledby="infoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="infoModalLabel">Information
+                            Form</h5>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="infoInput" class="form-label">Enter
+                                    Information</label>
+                                <input type="text" class="form-control"
+                                    id="infoInput"
+                                    placeholder="Enter your info here">
+                            </div>
+                            <button type="submit"
+                                class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- table -->
+        <h1>Companies</h1>
+        <!-- <ul id="company-list"></ul> -->
+      
+        <script>
+          async function loadCompanies() {
+            const res = await fetch("/company");
+    const companies = await res.json();
+    console.log(companies);
+
+    const tableBody = document.getElementById("company-list");
+
+    companies.forEach(company => {
+      const tr = document.createElement("tr");
+
+      // Manually create td for each field you want
+      const fields = ["company_id", "company_name", "company_type", "rating", "website_url"];
+      fields.forEach(field => {
+        const td = document.createElement("td");
+        td.textContent = company[field];
+        tr.appendChild(td);
+      });
+
+      tableBody.appendChild(tr);
+    });
+  }
+        
+      
+          loadCompanies();
+        </script>
+        <table class="table table-dark table-striped ">
+            <thead>
+                <tr>
+                    <th scope="col">company name</th>
+                    <th scope="col">Company Type</th>
+                    <th scope="col">report rating</th>
+                    <th scope="col">website</th>
+                    <th scope="col">More Info</th>
+                </tr>
+            </thead>
+
+            <tbody id="company-list">
+                <!-- <tr id="company-list">
+                    <td scope="row">1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    <td>show full details</td>
+
+                </tr> -->
+                
+            </tbody>
+        </table>
+    </body>
+</html>

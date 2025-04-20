@@ -1,0 +1,15 @@
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+.table-dark {
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.table-dark th, 
+.table-dark td {
+    padding-left: 20px;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    /* background-color: rgba(29, 120, 216, 0.05);  */
+    background-color: rgba(18, 119, 227, 0.738); 
+}
