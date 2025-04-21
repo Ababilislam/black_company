@@ -6,7 +6,7 @@ import psycopg
 from model import models
 from schema.schemas import User_out, User_in
 from db.database import get_db
-from sqlalchemy import func, text
+from sqlalchemy import func, text,desc
 from sqlalchemy.orm import Session
 from fastapi.staticfiles import StaticFiles
 
@@ -21,7 +21,7 @@ router.mount("/static", StaticFiles(directory="static"), name="static")
 
 @router.get("/", response_model=list[User_out])
 async def get_company(skip:int=0 , limit:int = 10, db:Session =Depends(get_db)):
-    companies = db.query(models.Companies).offset(skip).limit(limit).all()
+    companies = db.query(models.Companies).order_by(desc(models.Companies.company_id)).offset(skip).limit(limit).all()
     if not companies:
         raise HTTPException(status_code=404, detail="companies not found")
     return companies
